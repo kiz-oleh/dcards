@@ -30,6 +30,9 @@ jobs:
           platforms;android-19
         accept-android-sdk-licenses: true
 
+    - name: Debug available SDK packages
+      run: sdkmanager --list | grep 'build-tools'
+
     - name: Grant execute permission
       run: chmod +x ./gradlew
 
