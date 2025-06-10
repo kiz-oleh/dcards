@@ -22,9 +22,6 @@ jobs:
     - name: Verify Java version
       run: java -version
 
-    - name: Debug available SDK packages
-      run: sdkmanager --list | grep 'build-tools'
-
     - name: Set up Android SDK
       uses: android-actions/setup-android@v3
       with:
