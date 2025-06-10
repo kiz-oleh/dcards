@@ -1,15 +1,15 @@
 plugins {
     id 'com.android.application'
-    id 'org.jetbrains.kotlin.android' // Залиште, навіть якщо не використовуєте Kotlin. Gradle може його ігнорувати.
+    id 'org.jetbrains.kotlin.android'
 }
 
 android {
-    compileSdk 34 // Рекомендовано останній SDK для компіляції
+    compileSdk 34
 
     defaultConfig {
-        applicationId "com.yourcompany.yourapp" // <<< ЗАМІНІТЬ НА ВАШ PACKAGE NAME
-        minSdkVersion 15 // API Level 15 для Android 4.0.3 (Ice Cream Sandwich)
-        targetSdkVersion 34 // Рекомендовано таргетувати останній SDK
+        applicationId "com.wdsdesigngroup.dcards"
+        minSdkVersion 15 // Android 4.0.3 (Ice Cream Sandwich)
+        targetSdkVersion 34
         versionCode 1
         versionName "1.0"
 
@@ -34,8 +34,6 @@ android {
 dependencies {
     // AppCompat для зворотної сумісності UI
     implementation 'androidx.appcompat:appcompat:1.6.1'
-
-    // ConstraintLayout (якщо використовується, можна видалити, якщо ви використовуєте RelativeLayout/LinearLayout)
     implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
 
     // Тестові бібліотеки
