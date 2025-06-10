@@ -22,6 +22,9 @@ jobs:
     - name: Verify Java version
       run: java -version
 
+    - name: Debug available SDK packages
+      run: sdkmanager --list | grep 'build-tools'
+
     - name: Set up Android SDK
       uses: android-actions/setup-android@v3
       with:
@@ -29,9 +32,6 @@ jobs:
           build-tools;19.0.3
           platforms;android-19
         accept-android-sdk-licenses: true
-
-    - name: Debug available SDK packages
-      run: sdkmanager --list | grep 'build-tools'
 
     - name: Grant execute permission
       run: chmod +x ./gradlew
