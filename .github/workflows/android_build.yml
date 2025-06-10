@@ -11,45 +11,45 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout Code
-      uses: actions/checkout@v4
+      - name: Checkout Code
+        uses: actions/checkout@v4
 
-    - name: Set up JDK 17 for SDK Manager
-      uses: actions/setup-java@v4
-      id: setup_jdk_17
-      with:
-        java-version: '17'
-        distribution: 'temurin'
+      - name: Set up JDK 17 for SDK Manager
+        uses: actions/setup-java@v4
+        id: setup_jdk_17
+        with:
+          java-version: '17'
+          distribution: 'temurin'
 
-    - name: Set up Android SDK
-      uses: android-actions/setup-android@v3
-      with:
-        packages:
-          - platform-tools
-          - platforms;android-15
-          - build-tools;34.0.0
-          - cmdline-tools;latest
-      env: # <<< ВИПРАВЛЕНО: Змінено відступ env:
-        JAVA_HOME: ${{ steps.setup_jdk_17.outputs.java-home }}
+      - name: Set up Android SDK
+        uses: android-actions/setup-android@v3
+        with:
+          packages:
+            - platform-tools
+            - platforms;android-15
+            - build-tools;34.0.0
+            - cmdline-tools;latest
+        env:
+          JAVA_HOME: ${{ steps.setup_jdk_17.outputs.java-home }}
 
-    - name: Set up JDK 8 for Gradle Build
-      uses: actions/setup-java@v4
-      id: setup_jdk_8
-      with:
-        java-version: '8'
-        distribution: 'temurin'
-        cache: gradle
+      - name: Set up JDK 8 for Gradle Build
+        uses: actions/setup-java@v4
+        id: setup_jdk_8
+        with:
+          java-version: '8'
+          distribution: 'temurin'
+          cache: gradle
 
-    - name: Grant execute permission for gradlew
-      run: chmod +x gradlew
+      - name: Grant execute permission for gradlew
+        run: chmod +x gradlew
 
-    - name: Build Debug APK
-      run: ./gradlew assembleDebug
-      env: # <<< ВИПРАВЛЕНО: Змінено відступ env:
-        JAVA_HOME: ${{ steps.setup_jdk_8.outputs.java-home }}
+      - name: Build Debug APK
+        run: ./gradlew assembleDebug
+        env:
+          JAVA_HOME: ${{ steps.setup_jdk_8.outputs.java-home }}
 
-    - name: Upload Debug APK
-      uses: actions/upload-artifact@v4
-      with:
-        name: app-debug-apk
-        path: app/build/outputs/apk/debug/app-debug.apk
+      - name: Upload Debug APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: app-debug-apk
+          path: app/build/outputs/apk/debug/app-debug.apk
