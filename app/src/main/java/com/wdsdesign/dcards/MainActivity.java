@@ -1,4 +1,4 @@
-package com.example.webviewapp;
+package com.wdsdesign.dcards;
 
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -24,8 +24,10 @@ public class MainActivity extends AppCompatActivity {
         webView.getSettings().setDomStorageEnabled(true);
         webView.getSettings().setAllowFileAccess(true);
 
+        // Увімкнення підтримки Cookies
         CookieManager.getInstance().setAcceptCookie(true);
 
+        // Отримання останньої URL
         String lastUrl = preferences.getString(LAST_URL_KEY, "https://wdsdesigngroup.com/fcards/");
         webView.loadUrl(lastUrl);
 
