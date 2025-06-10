@@ -1,55 +1,33 @@
-name: Android CI Build for Android 4.0.3
+name: Build APK for Android 4.0.3
 
 on:
   push:
-    branches: [ "main", "master" ]
-  pull_request:
-    branches: [ "main", "master" ]
+    branches: [main]
+  workflow_dispatch:
 
 jobs:
   build:
+    name: Build debug APK
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      - name: Set up JDK 17 for SDK Manager
-        uses: actions/setup-java@v4
-        id: setup_jdk_17
-        with:
-          java-version: '17'
-          distribution: 'temurin'
+    - name: Set up JDK 11
+      uses: actions/setup-java@v4
+      with:
+        distribution: 'zulu'
+        java-version: 11
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-        env:
-          JAVA_HOME: ${{ steps.setup_jdk_17.outputs.java-home }}
-        with:
-          packages:
-            - platform-tools
-            - platforms;android-15
-            - build-tools;34.0.0
-            - cmdline-tools;latest
+    - name: Make gradlew executable
+      run: chmod +x ./gradlew
 
-      - name: Set up JDK 8 for Gradle Build
-        uses: actions/setup-java@v4
-        id: setup_jdk_8
-        with:
-          java-version: '8'
-          distribution: 'temurin'
-          cache: gradle
+    - name: Build APK
+      run: ./gradlew assembleDebug
 
-      - name: Grant execute permission for gradlew
-        run: chmod +x gradlew
-
-      - name: Build Debug APK
-        run: ./gradlew assembleDebug
-        env:
-          JAVA_HOME: ${{ steps.setup_jdk_8.outputs.java-home }}
-
-      - name: Upload Debug APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: dcards-debug-apk
+        path: app/build/outputs/apk/debug/*.apk
