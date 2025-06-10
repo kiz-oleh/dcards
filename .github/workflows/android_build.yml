@@ -29,7 +29,7 @@ jobs:
             - platforms;android-15
             - build-tools;34.0.0
             - cmdline-tools;latest
-        env:
+        env: # <<< ВИПРАВЛЕНО: Зменшено відступ до 8 пробілів
           JAVA_HOME: ${{ steps.setup_jdk_17.outputs.java-home }}
 
       - name: Set up JDK 8 for Gradle Build
@@ -45,7 +45,7 @@ jobs:
 
       - name: Build Debug APK
         run: ./gradlew assembleDebug
-        env:
+        env: # <<< ВИПРАВЛЕНО: Зменшено відступ до 8 пробілів
           JAVA_HOME: ${{ steps.setup_jdk_8.outputs.java-home }}
 
       - name: Upload Debug APK
