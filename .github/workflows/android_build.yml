@@ -27,10 +27,10 @@ jobs:
       uses: android-actions/setup-android@v3
       with:
         packages: |
-          "platform-tools"
-          "platforms;android-15"
-          "build-tools;34.0.0"
-          "cmdline-tools;latest"
+          platform-tools
+          platforms;android-15
+          build-tools;34.0.0
+          cmdline-tools;latest
       # Вказуємо, щоб цей крок використовував JDK 17
       env:
         JAVA_HOME: ${{ steps.setup_jdk_17.outputs.java-home }}
