@@ -14,43 +14,39 @@ jobs:
     - name: Checkout Code
       uses: actions/checkout@v4
 
-    # Крок 1: Встановлюємо JDK 17 для запуску sdkmanager
     - name: Set up JDK 17 for SDK Manager
       uses: actions/setup-java@v4
-      id: setup_jdk_17 # Додаємо ID, щоб посилатися на цей JDK
+      id: setup_jdk_17
       with:
-        java-version: '17' # JDK 17 потрібен для sdkmanager
+        java-version: '17'
         distribution: 'temurin'
 
-    # Крок 2: Налаштовуємо Android SDK, використовуючи JDK 17
     - name: Set up Android SDK
       uses: android-actions/setup-android@v3
       with:
-        packages: |
-          platform-tools
-          platforms;android-15
-          build-tools;34.0.0
-          cmdline-tools;latest
-      # Вказуємо, щоб цей крок використовував JDK 17
+        packages: # <<< ВИПРАВЛЕНО: Синтаксис списку пакетів
+          - platform-tools
+          - platforms;android-15
+          - build-tools;34.0.0
+          - cmdline-tools;latest
       env:
         JAVA_HOME: ${{ steps.setup_jdk_17.outputs.java-home }}
 
-    # Крок 3: Встановлюємо JDK 8 для компіляції Gradle
     - name: Set up JDK 8 for Gradle Build
       uses: actions/setup-java@v4
-      id: setup_jdk_8 # Додаємо ID для JDK 8
+      id: setup_jdk_8
       with:
-        java-version: '8' # JDK 8 потрібен для вашого Android проекту (minSdkVersion 15)
+        java-version: '8'
         distribution: 'temurin'
         cache: gradle
 
     - name: Grant execute permission for gradlew
       run: chmod +x gradlew
 
-    - name: Build Debug APK # Запускаємо Gradle з JDK 8
+    - name: Build Debug APK
       run: ./gradlew assembleDebug
       env:
-        JAVA_HOME: ${{ steps.setup_jdk_8.outputs.java-home }} # Переконайтеся, що Gradle використовує JDK 8
+        JAVA_HOME: ${{ steps.setup_jdk_8.outputs.java-home }}
 
     - name: Upload Debug APK
       uses: actions/upload-artifact@v4
