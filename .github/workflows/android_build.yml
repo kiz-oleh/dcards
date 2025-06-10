@@ -29,8 +29,6 @@ jobs:
             - platforms;android-15
             - build-tools;34.0.0
             - cmdline-tools;latest
-        env:
-          JAVA_HOME: ${{ steps.setup_jdk_17.outputs.java-home }}
 
       - name: Set up JDK 8 for Gradle Build
         uses: actions/setup-java@v4
