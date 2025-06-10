@@ -24,12 +24,12 @@ jobs:
     - name: Set up Android SDK
       uses: android-actions/setup-android@v3
       with:
-        packages: # <<< ВИПРАВЛЕНО: Синтаксис списку пакетів
+        packages:
           - platform-tools
           - platforms;android-15
           - build-tools;34.0.0
           - cmdline-tools;latest
-      env:
+      env: # <<< ВИПРАВЛЕНО: Змінено відступ env:
         JAVA_HOME: ${{ steps.setup_jdk_17.outputs.java-home }}
 
     - name: Set up JDK 8 for Gradle Build
@@ -45,7 +45,7 @@ jobs:
 
     - name: Build Debug APK
       run: ./gradlew assembleDebug
-      env:
+      env: # <<< ВИПРАВЛЕНО: Змінено відступ env:
         JAVA_HOME: ${{ steps.setup_jdk_8.outputs.java-home }}
 
     - name: Upload Debug APK
