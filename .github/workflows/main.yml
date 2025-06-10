@@ -10,31 +10,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+    - name: Checkout
+      uses: actions/checkout@v4
 
-      - name: Set up JDK
-        uses: actions/setup-java@v3
-        with:
-          distribution: temurin
-          java-version: '17'
+    - name: Set up JDK 17
+      uses: actions/setup-java@v3
+      with:
+        distribution: temurin
+        java-version: '17'
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
-        with:
-          packages: |
-            platform-tools
-            build-tools;19.0.3
-            platforms;android-19
-          accept-android-sdk-licenses: true
+    - name: Verify Java version
+      run: java -version
 
-      - name: Grant execute permission
-        run: chmod +x ./gradlew
+    - name: Set up Android SDK
+      uses: android-actions/setup-android@v3
+      with:
+        packages: |
+          platform-tools
+          "build-tools;19.0.3"
+          "platforms;android-19"
+        accept-android-sdk-licenses: true
 
-      - name: Build debug APK
-        run: ./gradlew clean assembleDebug
+    - name: Grant execute permission for gradlew
+      run: chmod +x ./gradlew
 
-      - name: Upload APK artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: Api14-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+    - name: Build debug APK
+      run: ./gradlew clean assembleDebug
+
+    - name: Upload APK artifact
+      uses: actions/upload-artifact@v4
+      with:
+        name: Api14-apk
+        path: app/build/outputs/apk/debug/app-debug.apk
