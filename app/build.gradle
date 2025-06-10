@@ -1,25 +1,45 @@
-apply plugin: 'com.android.application'
+plugins {
+    id 'com.android.application'
+    id 'org.jetbrains.kotlin.android' // Залиште, навіть якщо не використовуєте Kotlin. Gradle може його ігнорувати.
+}
 
 android {
-    compileSdkVersion 19
-    buildToolsVersion "19.0.3"
+    compileSdk 34 // Рекомендовано останній SDK для компіляції
 
     defaultConfig {
-        applicationId "com.example.webviewapp"
-        minSdkVersion 14
-        targetSdkVersion 14
+        applicationId "com.yourcompany.yourapp" // <<< ЗАМІНІТЬ НА ВАШ PACKAGE NAME
+        minSdkVersion 15 // API Level 15 для Android 4.0.3 (Ice Cream Sandwich)
+        targetSdkVersion 34 // Рекомендовано таргетувати останній SDK
         versionCode 1
         versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 
     buildTypes {
         release {
             minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = '1.8'
     }
 }
 
 dependencies {
-    implementation 'androidx.appcompat:appcompat:1.0.0'
-}
+    // AppCompat для зворотної сумісності UI
+    implementation 'androidx.appcompat:appcompat:1.6.1'
 
+    // ConstraintLayout (якщо використовується, можна видалити, якщо ви використовуєте RelativeLayout/LinearLayout)
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.4'
+
+    // Тестові бібліотеки
+    testImplementation 'junit:junit:4.13.2'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.5'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.5.1'
+}
