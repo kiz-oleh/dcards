@@ -5,8 +5,8 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        // Використовуйте цю версію Gradle Plugin для сумісності
-        classpath 'com.android.tools.build:gradle:7.0.4' // Сумісна з Android Studio Arctic Fox / Bumblebee
+        // версія Gradle Plugin для сумісності з Android Studio Arctic Fox / Bumblebee
+        classpath 'com.android.tools.build:gradle:7.0.4'
 
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
